@@ -1,0 +1,49 @@
+<!doctype html><html lang=ja><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Pronounce Talk</title><meta name=description content="L/R, S/SH などの日本人が苦手な発音を練習する英会話アプリです。"><script></script><script async src="https://cse.google.com/cse.js?cx=partner-pub-6459713332128733:7164795498"></script><link rel=apple-touch-icon sizes=180x180 href=/pronounce-talk/favicon/apple-touch-icon.png><link rel=icon type=image/png sizes=48x48 href=/pronounce-talk/favicon/favicon-48x48.png><link rel=manifest href=/pronounce-talk/favicon/site.webmanifest><link rel=mask-icon href=/pronounce-talk/favicon/safari-pinned-tab.svg color=#5bbad5><link rel="shortcut icon" href=/pronounce-talk/favicon/favicon.ico><meta name=msapplication-TileColor content=#da532c><meta name=msapplication-config content=/pronounce-talk/favicon/browserconfig.xml><meta name=theme-color content=#ffffff><link href=https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css rel=stylesheet integrity=sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC crossorigin=anonymous><style>@font-face{font-family:textar-light;src:local(Textar),url(https://marmooo.github.io/fonts/textar-light.woff2) format('woff2');font-display:swap}pre.aa{font-size:1rem;display:inline-block;overflow:hidden;text-align:left;font-family:textar-light;line-height:1.1;white-space:pre;word-wrap:normal}#counter{font-size:10rem;width:12rem;height:12rem;line-height:12rem;border-radius:50%;background:tomato;margin:auto}canvas{width:105px;height:140px;border:solid 1px}.eraser{display:block;margin:auto;cursor:pointer}.card-header.ruby{padding:1rem 1.25rem .5rem}html[data-theme=dark]{filter:invert(1) hue-rotate(180deg)}@-moz-document url-prefix(){html[data-theme=dark]{background-color:#000}}html[data-theme=dark] #mascots{filter:invert(1) hue-rotate(180deg)}html[data-theme=dark] #___gcse_0 img{filter:invert(1) hue-rotate(180deg)}</style><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css media=print onload="this.media='all'"><header><nav class="navbar navbar-expand navbar-light"><div class="container flex-wrap"><a class=navbar-brand href=/pronounce-talk/><img src=/pronounce-talk/favicon/original.svg width=32 height=32>
+Pronounce Talk</a><div class=navbar-nav><select id=grade class="form-select form-select-sm" aria-label=学年>
+<option>L / R
+<option>S / SH
+<option>S / TH
+<option>B / V
+<option>A / O / U
+<option>すべて</select>
+<button title=ダークモード切替 onclick=toggleDarkMode() class="fs-4 btn p-0 ms-1">🌓</button></div></div></nav></header><main class=container><noscript><div class="alert alert-info text-center">JavaScript を ON にしてください</div></noscript><div id=nosupport class="alert alert-warning text-center d-none">お使いのブラウザは動作しない可能性があります。
+2021年現在、Desktop / Android の Chrome のみサポートしています。</div><div id=gameStart class="text-center d-none"><div id=countdown><div id=counter>3</div><img src=img/witch-learning.png width=170 height=128 alt=witch-learning></div></div><div id=scorePanel class="text-center pb-3 d-none"><h3 class=pt-3><ruby>結果<rp>(<rt>けっか<rp>)</ruby></h3><img src=img/witch-learning.png width=170 height=128 alt=witch-learning><p>クリアしたのは・・・<div class="h2 pb-3"><span id=correct class=h1>0</span> /
+<span id=total class=h1>0</span>
+<ruby>問<rp>(<rt>もん<rp>)</ruby>！</div><button onclick=countdown() type=button class="btn btn-primary btn-lg m-1">リスタート</button></div><div id=playPanel><div class=row><div class=col-sm><p>L/R, S/SH などの<ruby>日本人<rt>にほんじん</ruby>が<ruby>苦手<rt>にがて</ruby>な<ruby>発音<rt>はつおん</ruby>を<ruby>練習<rt>れんしゅう</ruby>する<ruby>英会話<rt>えいかいわ</ruby>アプリです。<p>｢これなあに？｣を<ruby>押<rp>(<rt>お<rp>)</ruby>すとランダムにクイズを<ruby>出<rp>(<rt>だ<rp>)</ruby>します。
+<ruby>採点<rt>さいてん</ruby>がきびしい<ruby>単語<rt>たんご</ruby>は<ruby>文章<rt>ぶんしょう</ruby>で<ruby>答<rt>こた</ruby>えてみてください。
+こたえの<ruby>単語<rt>たんご</ruby>がふくまれていれば<ruby>正解<rt>せいかい</ruby>になります。</div><div class=col-sm><div class="alert alert-info text-center"><div class=h5><label><ruby>時間<rp>(<rt>じかん<rp>)</ruby>:</label>
+<span id=time class=ms-1>180秒 / 180秒</span></div><button onclick=countdown() class="btn btn-primary btn-lg">スタート</button></div></div></div><div class=text-center><form id=cse-search-box-form-id class=pb-1><input type=hidden value=学校 id=cse-search-input-box-id>
+<input id=searchButton type=submit value=これなあに？ class="btn btn-primary btn-lg mx-1"></form></div><div class=text-center><div class="pt-4 h5">問題: <span id=problem>ゴファー</span>
+<button onclick=respeak() title=もう一度聴く class="btn btn-outline-secondary btn-lg ms-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 5V1L7 6l5 5V7c3.31.0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/></svg></button></div><div id=recognitionPanel class="text-center pt-1"><span id=reply class="pe-2 h5">英語で答えてください</span>
+<button id=start-voice-input onclick=startVoiceInput() title=音声入力を開始する class="btn btn-outline-secondary rounded-pill"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000" width="64" height="64"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 14c1.66.0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/></svg></button>
+<button id=stop-voice-input onclick=stopVoiceInput() title=音声入力を終了する class="btn btn-outline-secondary rounded-pill d-none"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="64" height="64"><path d="M0 0h24v24H0zm0 0h24v24H0z" fill="none"/><path d="M19 11h-1.7c0 .74-.16 1.43-.43 2.05l1.23 1.23c.56-.98.9-2.09.9-3.28zm-4.02.17c0-.06.02-.11.02-.17V5c0-1.66-1.34-3-3-3S9 3.34 9 5v.18l5.98 5.99zM4.27 3 3 4.27l6.01 6.01V11c0 1.66 1.33 3 2.99 3 .22.0.44-.03.65-.08l1.66 1.66c-.71.33-1.5.52-2.31.52-2.76.0-5.3-2.1-5.3-5.1H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c.91-.13 1.77-.45 2.54-.9L19.73 21 21 19.73 4.27 3z"/></svg></button></div></div><div id=mascots class="text-center pt-4"><div class=row><div class="col-sm overflow-hidden"><h2>fly?</h2><pre class="aa pt-3">　　　　　　　　　　　　　　　　　　　彡⌒ミ
+　　　　　　　　　　　　　　　　　 　(´･ω･｀)
+　　　　　　　　　　　　　　　　　 　O/-/O||
+　　　　　　　　　　　　　　　　　 　　∪∪/
+　　　　　　　　　　　　　　　　　　　 　ｌｌ
+　　　　　　　　　　　　　 　 　 ;､ 　　 ｌiｌi　　 　 　 　 o
+　　　　　　　　　　 　 　 　 　 l |　　, i li　　ボ　 　 　!
+　　　　　　　 　 　 　 　 　 　 ｌ |　　ｒl　.|h　 フ　　　 |
+　　　　　　　 　 　 　 　 　 　 ! | 　 l,|　 | ヾ　ｱ 　 　 |
+　 　 　 　 　 　 　 　 　 　 　 l .|!(⌒(　 ,::)::）　ﾂ　 　 |
+　　　　　　　　　　 　 　 　 _＿_j_.,j '´｀''ｰ'´'; _＿__　　　ｉ|
+　_＿＿＿＿＿__,,....ｨi!::::::::,' ´　　｀ヽ　:i!::::::::i!ﾞｉｰ:､!l......,,,,,_＿＿＿＿__
+　｀ー―‐‐,------ﾟヽi!::::: {　,..,　　　.;　:i!::::::::i!';　_,: ﾟ;ｰ--------,‐‐‐'
+　　　 　 　 　 'ｰ――― i!:::: ヽ'ｰ'　　 　.,.:'i!::::::::i! ;_＿_ 'ｰ――――'
+　　　　　 　 　 　 　 　 　 ﾞｰ＿_｀''''iｰ'i,:-;､_,ﾞー‐'_/
+              </pre></div><div class="col-sm overflow-hidden"><h2>or fry?</h2><pre class="aa pt-3">　　　　　　　　　　　　　　　　　 ．･｡ﾟ･．･｡ﾟ゜｡ﾟ･｡．
+　　　　　　　　　　　　　　｡・ﾟ･ﾟ　　　　　　　　　　･ﾟ．
+　　　　　　　　　　　　　｡･　　　　　　　　　　　　　｡･｡
+　　　　　　　　　　 　 ｡･　　　　　　　　　　　　　　　ﾟ･ﾟ
+　　　　　　　　　　　｡･　　　　　　　　　　　　　　　｡･｡･ﾟ･
+　　　　　　　　　　｡･　　　　　　　　　　　　　　　　｡･　｡･ﾟ･
+　　　　　　　　　｡･　　　　　　　　　　　　　　　｡･ﾟ･　ﾟ･｡･ﾟ･
+　　　　　　　　 ｡･　　　　　　　　　　　　｡･ﾟ･｡･ﾟ･｡･ﾟ･･ﾟ･｡･ﾟ･
+　　　　　　　　　｡･　　　　　　　　｡･ﾟ･｡･ﾟ･　｡･ﾟ･｡･ﾟ･　｡･ﾟ｡･ﾟ･
+　　　∧,,∧　　 ｡･　　　｡･ﾟ･｡｡･ﾟ･｡･ﾟ･｡･ﾟ･｡･ﾟ･｡･ﾟ･ﾟ　･｡･ﾟ･｡･ﾟ｡
+　　（；`・ω・）　｡･ﾟ･｡･ﾟ･｡･ﾟ･｡･ﾟ･｡･ﾟ･｡･ﾟ･｡･ﾟ･｡･ﾟ･｡･ﾟ･　｡･ﾟ･｡･｡･
+　　/　　 ｏ━ヽニニニニニニニニニニニニニニニニニニニフ
+　　しー-J
+              </pre></div></div></div><div class=gcse-searchresults-only data-defaulttoimagesearch=true data-disablewebsearch=true data-resultsetsize=small></div></div></main><footer class="pt-4 alert text-center"><div class=pt-3><a class=px-1 href=/>Home</a>
+<a class=px-1 href=/terms/>Terms</a>
+<a class=px-1 href=https://github.com/marmooo/pronounce-talk>Contact</a></div><div class=text-muted>&copy; <a href=https://github.com/marmooo>marmooo</a></div></footer><script src=index.js></script>
