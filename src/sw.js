@@ -13,7 +13,7 @@ var urlsToCache = [
   '/pronounce-talk/mp3/correct3.mp3',
   '/pronounce-talk/favicon/original.svg',
   'https://marmooo.github.io/fonts/textar-light.woff2',
-  'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css',
+  'https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css',
 ];
 
 self.addEventListener('install', function(event) {
