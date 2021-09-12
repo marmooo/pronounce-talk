@@ -322,7 +322,6 @@ function countdown() {
       gameStart.classList.add('d-none');
       playPanel.classList.remove('d-none');
       correctCount = incorrectCount = 0;
-      document.getElementById('score').textContent = 0;
       startGameTimer();
     }
   }, 1000);
