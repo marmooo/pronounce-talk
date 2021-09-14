@@ -17,7 +17,7 @@ const style=getComputedStyle(node);const font=style.fontFamily;const fontSize=pa
 function getRandomInt(min,max){min=Math.ceil(min);max=Math.floor(max);return Math.floor(Math.random()*(max-min)+min);}
 function nextProblem(){let problem=problems[getRandomInt(0,problems.length-1)];if(Math.random()>0.5){problem=problem.slice(0,2);}else{problem=problem.slice(2,4);}
 const[en,ja]=problem;const input=document.getElementById("cse-search-input-box-id");input.value=ja;answer=en;const problemNode=document.getElementById("problem");problemNode.innerText=ja+" ("+en+")";if(localStorage.getItem("voice")!=0){speak(answer);}}
-function initProblems(){const grade=document.getElementById("grade").selectedIndex;fetch(grade+".csv").then((response)=>response.text()).then((csv)=>{problems=[];csv.split("\n").forEach((line)=>{if(!line)return;problems.push(line.split(","));});});}
+function initProblems(){const grade=document.getElementById("grade").selectedIndex;fetch("data/"+grade+".csv").then((response)=>response.text()).then((csv)=>{problems=[];csv.split("\n").forEach((line)=>{if(!line)return;problems.push(line.split(","));});});}
 initProblems();function searchByGoogle(event){event.preventDefault();const input=document.getElementById("cse-search-input-box-id");const element=google.search.cse.element.getElement("searchresults-only0");nextProblem();if(input.value==""){element.clearAllResults();}else{voiceInput.stop();element.execute(input.value);}
 if(firstRun){const mascots=document.getElementById("mascots");while(mascots.firstChild){mascots.removeChild(mascots.lastChild);}
 firstRun=false;}
