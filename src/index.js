@@ -166,6 +166,11 @@ function getRandomInt(min, max) {
 }
 
 function nextProblem() {
+  const searchButton = document.getElementById("searchButton");
+  searchButton.disabled = true;
+  setTimeout(function () {
+    searchButton.disabled = false;
+  }, 2000);
   let problem = problems[getRandomInt(0, problems.length - 1)];
   if (Math.random() > 0.5) {
     problem = problem.slice(0, 2);
