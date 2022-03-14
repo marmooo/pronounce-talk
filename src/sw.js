@@ -1,4 +1,4 @@
-var CACHE_NAME = '2022-03-15 00:00';
+var CACHE_NAME = '2022-03-15 00:15';
 var urlsToCache = [
   "/pronounce-talk/",
   "/pronounce-talk/index.js",
