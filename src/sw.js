@@ -1,4 +1,4 @@
-var CACHE_NAME = '2022-04-06 09:00';
+var CACHE_NAME = '2022-04-25 07:35';
 var urlsToCache = [
   "/pronounce-talk/",
   "/pronounce-talk/index.js",
@@ -11,7 +11,7 @@ var urlsToCache = [
   "/pronounce-talk/mp3/end.mp3",
   "/pronounce-talk/mp3/incorrect1.mp3",
   "/pronounce-talk/mp3/correct3.mp3",
-  "/pronounce-talk/favicon/original.svg",
+  "/pronounce-talk/favicon/favicon.svg",
   "https://marmooo.github.io/fonts/textar-light.woff2",
   "https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css",
   "https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css",
