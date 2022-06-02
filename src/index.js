@@ -1,7 +1,12 @@
+const playPanel = document.getElementById("playPanel");
+const countPanel = document.getElementById("countPanel");
+const scorePanel = document.getElementById("scorePanel");
+const gameTime = 120;
 let problems = [];
 let answer = "Gopher";
 let firstRun = true;
-let correctCount = incorrectCount = 0;
+let correctCount = 0;
+let incorrectCount = 0;
 const tmpCanvas = document.createElement("canvas");
 let englishVoices = [];
 const voiceInput = setVoiceInput();
@@ -75,13 +80,13 @@ function loadAudios() {
 
 function loadVoices() {
   // https://stackoverflow.com/questions/21513706/
-  const allVoicesObtained = new Promise(function (resolve) {
+  const allVoicesObtained = new Promise((resolve) => {
     let voices = speechSynthesis.getVoices();
     if (voices.length !== 0) {
       resolve(voices);
     } else {
       let supported = false;
-      speechSynthesis.addEventListener("voiceschanged", function () {
+      speechSynthesis.addEventListener("voiceschanged", () => {
         supported = true;
         voices = speechSynthesis.getVoices();
         resolve(voices);
@@ -175,7 +180,7 @@ function getRandomInt(min, max) {
 function nextProblem() {
   const searchButton = document.getElementById("searchButton");
   searchButton.disabled = true;
-  setTimeout(function () {
+  setTimeout(() => {
     searchButton.disabled = false;
   }, 2000);
   let problem = problems[getRandomInt(0, problems.length - 1)];
@@ -188,8 +193,8 @@ function nextProblem() {
   const input = document.getElementById("cse-search-input-box-id");
   input.value = ja;
   answer = en;
-  const problemNode = document.getElementById("problem");
-  problemNode.textContent = ja + " (" + en + ")";
+  document.getElementById("problemJa").textContent = ja;
+  document.getElementById("problemEn").textContent = `(${en})`;
   if (localStorage.getItem("voice") != 0) {
     speak(answer);
   }
@@ -258,14 +263,14 @@ function setVoiceInput() {
       if (reply.toLowerCase().split(" ").includes(answer.toLowerCase())) {
         correctCount += 1;
         playAudio(correctAudio);
-        replyObj.textContent = "◯ " + answer;
+        replyObj.textContent = "⭕ " + answer;
         document.getElementById("searchButton").classList.add(
           "animate__heartBeat",
         );
       } else {
         incorrectCount += 1;
         playAudio(incorrectAudio);
-        replyObj.textContent = "× " + reply;
+        replyObj.textContent = "❌ " + reply;
       }
       voiceInput.stop();
     };
@@ -290,12 +295,10 @@ let gameTimer;
 function startGameTimer() {
   clearInterval(gameTimer);
   const timeNode = document.getElementById("time");
-  timeNode.textContent = "180秒 / 180秒";
-  gameTimer = setInterval(function () {
-    const arr = timeNode.textContent.split("秒 /");
-    const t = parseInt(arr[0]);
+  gameTimer = setInterval(() => {
+    const t = parseInt(timeNode.textContent);
     if (t > 0) {
-      timeNode.textContent = (t - 1) + "秒 /" + arr[1];
+      timeNode.textContent = t - 1;
     } else {
       clearInterval(gameTimer);
       playAudio(endAudio);
@@ -310,13 +313,14 @@ function startGameTimer() {
 
 let countdownTimer;
 function countdown() {
+  initTime();
   clearTimeout(countdownTimer);
-  gameStart.classList.remove("d-none");
+  countPanel.classList.remove("d-none");
   playPanel.classList.add("d-none");
   scorePanel.classList.add("d-none");
   const counter = document.getElementById("counter");
   counter.textContent = 3;
-  countdownTimer = setInterval(function () {
+  countdownTimer = setInterval(() => {
     const colors = ["skyblue", "greenyellow", "violet", "tomato"];
     if (parseInt(counter.textContent) > 1) {
       const t = parseInt(counter.textContent) - 1;
@@ -324,7 +328,7 @@ function countdown() {
       counter.textContent = t;
     } else {
       clearTimeout(countdownTimer);
-      gameStart.classList.add("d-none");
+      countPanel.classList.add("d-none");
       playPanel.classList.remove("d-none");
       correctCount = incorrectCount = 0;
       startGameTimer();
@@ -335,20 +339,21 @@ function countdown() {
   }, 1000);
 }
 
+function initTime() {
+  document.getElementById("time").textContent = gameTime;
+}
+
 [...document.getElementById("mascots").getElementsByClassName("aa")].forEach(
   (aa) => {
     resizeFontSize(aa);
-    window.addEventListener("resize", function () {
+    window.addEventListener("resize", () => {
       resizeFontSize(aa);
     });
   },
 );
-document.getElementById("searchButton").addEventListener(
-  "animationend",
-  function () {
-    this.classList.remove("animate__heartBeat");
-  },
-);
+document.getElementById("searchButton").addEventListener("animationend", (e) => {
+  e.target.classList.remove("animate__heartBeat");
+});
 
 document.getElementById("toggleDarkMode").onclick = toggleDarkMode;
 document.getElementById("restartButton").onclick = countdown;
