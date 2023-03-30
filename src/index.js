@@ -1,6 +1,7 @@
 const playPanel = document.getElementById("playPanel");
 const countPanel = document.getElementById("countPanel");
 const scorePanel = document.getElementById("scorePanel");
+const searchButton = document.getElementById("searchButton");
 const gameTime = 120;
 let problems = [];
 let answer = "Gopher";
@@ -194,7 +195,6 @@ function getRandomInt(min, max) {
 }
 
 function nextProblem() {
-  const searchButton = document.getElementById("searchButton");
   searchButton.disabled = true;
   setTimeout(() => {
     searchButton.disabled = false;
@@ -278,9 +278,7 @@ function setVoiceInput() {
         correctCount += 1;
         playAudio("correct");
         replyObj.textContent = "⭕ " + answer;
-        document.getElementById("searchButton").classList.add(
-          "animate__heartBeat",
-        );
+        searchButton.classList.add("animate__heartBeat");
       } else {
         incorrectCount += 1;
         playAudio("incorrect");
@@ -346,9 +344,7 @@ function countdown() {
       playPanel.classList.remove("d-none");
       correctCount = incorrectCount = 0;
       startGameTimer();
-      document.getElementById("searchButton").classList.add(
-        "animate__heartBeat",
-      );
+      searchButton.classList.add("animate__heartBeat");
     }
   }, 1000);
 }
@@ -357,16 +353,15 @@ function initTime() {
   document.getElementById("time").textContent = gameTime;
 }
 
-[...document.getElementById("mascots").getElementsByClassName("aa")].forEach(
-  (aa) => {
+[...document.getElementById("mascots").getElementsByClassName("aa")]
+  .forEach((aa) => {
     resizeFontSize(aa);
     window.addEventListener("resize", () => {
       resizeFontSize(aa);
     });
-  },
-);
-document.getElementById("searchButton").addEventListener("animationend", (e) => {
-  e.target.classList.remove("animate__heartBeat");
+  });
+searchButton.addEventListener("animationend", (event) => {
+  event.target.classList.remove("animate__heartBeat");
 });
 
 document.getElementById("toggleDarkMode").onclick = toggleDarkMode;
