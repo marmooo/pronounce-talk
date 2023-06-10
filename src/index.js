@@ -240,10 +240,7 @@ function searchByGoogle(event) {
     element.execute(input.value);
   }
   if (firstRun) {
-    const mascots = document.getElementById("mascots");
-    while (mascots.firstChild) {
-      mascots.removeChild(mascots.lastChild);
-    }
+    document.getElementById("problems").replaceChildren();
     firstRun = false;
   }
   document.getElementById("reply").textContent = "英語で答えてください";
@@ -353,13 +350,13 @@ function initTime() {
   document.getElementById("time").textContent = gameTime;
 }
 
-[...document.getElementById("mascots").getElementsByClassName("aa")]
-  .forEach((aa) => {
+function resizeAA() {
+  aas.forEach((aa) => {
     resizeFontSize(aa);
-    window.addEventListener("resize", () => {
-      resizeFontSize(aa);
-    });
   });
+}
+
+const aas = [...document.getElementById("problems").getElementsByClassName("aa")];
 searchButton.addEventListener("animationend", (event) => {
   event.target.classList.remove("animate__heartBeat");
 });
@@ -375,3 +372,7 @@ document.addEventListener("click", unlockAudio, {
   once: true,
   useCapture: true,
 });
+document.getElementById("searchButton").addEventListener("click", () => {
+  window.removeEventListener("resize", resizeAA);
+});
+window.addEventListener("resize", resizeAA);
