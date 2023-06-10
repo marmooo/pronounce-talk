@@ -1,4 +1,4 @@
-var CACHE_NAME = "2023-03-31 00:05";
+var CACHE_NAME = "2023-06-10 11:05";
 var urlsToCache = [
   "/pronounce-talk/",
   "/pronounce-talk/index.js",
@@ -13,7 +13,6 @@ var urlsToCache = [
   "/pronounce-talk/mp3/correct3.mp3",
   "/pronounce-talk/favicon/favicon.svg",
   "https://marmooo.github.io/fonts/textar-light.woff2",
-  "https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css",
   "https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css",
 ];
 
