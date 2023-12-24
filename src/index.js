@@ -274,12 +274,12 @@ function setVoiceInput() {
       const replyObj = document.getElementById("reply");
       if (reply.toLowerCase().split(" ").includes(answer.toLowerCase())) {
         correctCount += 1;
-        playAudio("correct");
+        playAudio("correct", 0.3);
         replyObj.textContent = "⭕ " + answer;
         searchButton.classList.add("animate__heartBeat");
       } else {
         incorrectCount += 1;
-        playAudio("incorrect");
+        playAudio("incorrect", 0.3);
         replyObj.textContent = "❌ " + reply;
       }
       voiceInput.stop();
