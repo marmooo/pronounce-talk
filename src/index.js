@@ -11,7 +11,7 @@ let incorrectCount = 0;
 const tmpCanvas = document.createElement("canvas");
 let englishVoices = [];
 const voiceInput = setVoiceInput();
-const audioContext = new AudioContext();
+const audioContext = new globalThis.AudioContext();
 const audioBufferCache = {};
 loadAudio("end", "mp3/end.mp3");
 loadAudio("correct", "mp3/correct3.mp3");
@@ -123,7 +123,7 @@ loadVoices();
 
 function speak(text) {
   speechSynthesis.cancel();
-  const msg = new SpeechSynthesisUtterance(text);
+  const msg = new globalThis.SpeechSynthesisUtterance(text);
   msg.onend = () => {
     voiceInput.start();
   };
@@ -250,10 +250,10 @@ function searchByGoogle(event) {
 document.getElementById("cse-search-box-form-id").onsubmit = searchByGoogle;
 
 function setVoiceInput() {
-  if (!("webkitSpeechRecognition" in window)) {
+  if (!globalThis.webkitSpeechRecognition) {
     document.getElementById("noSTT").classList.remove("d-none");
   } else {
-    const voiceInput = new webkitSpeechRecognition();
+    const voiceInput = new globalThis.webkitSpeechRecognition();
     voiceInput.lang = "en-US";
     // voiceInput.interimResults = true;
     voiceInput.continuous = true;
@@ -357,7 +357,9 @@ function resizeAA() {
   });
 }
 
-const aas = [...document.getElementById("problems").getElementsByClassName("aa")];
+const aas = [
+  ...document.getElementById("problems").getElementsByClassName("aa"),
+];
 searchButton.addEventListener("animationend", (event) => {
   event.target.classList.remove("animate__heartBeat");
 });
@@ -374,6 +376,6 @@ document.addEventListener("click", unlockAudio, {
   useCapture: true,
 });
 document.getElementById("searchButton").addEventListener("click", () => {
-  window.removeEventListener("resize", resizeAA);
+  globalThis.removeEventListener("resize", resizeAA);
 });
-window.addEventListener("resize", resizeAA);
+globalThis.addEventListener("resize", resizeAA);
