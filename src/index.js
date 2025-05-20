@@ -235,19 +235,16 @@ function nextProblem() {
   speak(answer);
 }
 
-function initProblems() {
+async function initProblems() {
   const grade = document.getElementById("grade").selectedIndex;
-  fetch("data/" + grade + ".csv")
-    .then((response) => response.text())
-    .then((csv) => {
-      problems = [];
-      csv.split("\n").forEach((line) => {
-        if (!line) return;
-        problems.push(line.split(","));
-      });
-    });
+  const response = await fetch("data/" + grade + ".csv");
+  const csv = response.text();
+  problems = [];
+  csv.split("\n").forEach((line) => {
+    if (!line) return;
+    problems.push(line.split(","));
+  });
 }
-initProblems();
 
 function searchByGoogle(event) {
   event.preventDefault();
@@ -377,6 +374,8 @@ function resizeAA() {
     resizeFontSize(aa);
   });
 }
+
+await initProblems();
 
 const aas = [
   ...document.getElementById("problems").getElementsByClassName("aa"),
