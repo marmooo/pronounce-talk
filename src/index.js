@@ -238,7 +238,7 @@ function nextProblem() {
 async function initProblems() {
   const grade = document.getElementById("grade").selectedIndex;
   const response = await fetch("data/" + grade + ".csv");
-  const csv = response.text();
+  const csv = await response.text();
   problems = [];
   csv.split("\n").forEach((line) => {
     if (!line) return;
