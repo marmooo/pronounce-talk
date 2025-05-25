@@ -41,6 +41,10 @@ function createAudioContext() {
 }
 
 function unlockAudio() {
+  const uttr = new SpeechSynthesisUtterance("");
+  uttr.lang = "en-US";
+  speechSynthesis.speak(uttr);
+
   if (audioContext) {
     audioContext.resume();
   } else {
@@ -49,7 +53,7 @@ function unlockAudio() {
     loadAudio("correct", "mp3/correct3.mp3");
     loadAudio("incorrect", "mp3/incorrect1.mp3");
   }
-  document.removeEventListener("pointerdown", unlockAudio);
+  document.removeEventListener("click", unlockAudio);
   document.removeEventListener("keydown", unlockAudio);
 }
 
@@ -391,7 +395,7 @@ document.getElementById("startVoiceInput").onclick = startVoiceInput;
 document.getElementById("stopVoiceInput").onclick = stopVoiceInput;
 document.getElementById("respeak").onclick = respeak;
 document.getElementById("grade").onchange = initProblems;
-document.addEventListener("pointerdown", unlockAudio, { once: true });
+document.addEventListener("click", unlockAudio, { once: true });
 document.addEventListener("keydown", unlockAudio, { once: true });
 document.getElementById("searchButton").addEventListener("click", () => {
   globalThis.removeEventListener("resize", resizeAA);
