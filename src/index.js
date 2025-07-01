@@ -1,6 +1,8 @@
 const playPanel = document.getElementById("playPanel");
 const countPanel = document.getElementById("countPanel");
 const scorePanel = document.getElementById("scorePanel");
+const replyPlease = document.getElementById("replyPlease");
+const reply = document.getElementById("reply");
 const searchButton = document.getElementById("searchButton");
 const gameTime = 120;
 let problems = [];
@@ -11,7 +13,9 @@ let incorrectCount = 0;
 const tmpCanvas = document.createElement("canvas");
 let englishVoices = [];
 let audioContext;
+let voiceStopped = false;
 const audioBufferCache = {};
+loadVoices();
 const voiceInput = setVoiceInput();
 loadConfig();
 
@@ -144,7 +148,6 @@ function loadVoices() {
       .filter((voice) => !jokeVoices.includes(voice.voiceURI));
   });
 }
-loadVoices();
 
 function speak(text) {
   speechSynthesis.cancel();
@@ -237,6 +240,7 @@ function nextProblem() {
   document.getElementById("problemJa").textContent = ja;
   document.getElementById("problemEn").textContent = `(${en})`;
   speak(answer);
+  startVoiceInput();
 }
 
 async function initProblems() {
@@ -266,7 +270,7 @@ function searchByGoogle(event) {
     document.getElementById("searchResults").classList.remove("d-none");
     firstRun = false;
   }
-  document.getElementById("reply").textContent = "英語で答えてください";
+  reply.textContent = "英語で答えてください";
   return false;
 }
 document.getElementById("cse-search-box-form-id").onsubmit = searchByGoogle;
@@ -280,29 +284,25 @@ function setVoiceInput() {
     // voiceInput.interimResults = true;
     voiceInput.continuous = true;
 
-    voiceInput.onstart = () => {
-      const startButton = document.getElementById("startVoiceInput");
-      const stopButton = document.getElementById("stopVoiceInput");
-      startButton.classList.add("d-none");
-      stopButton.classList.remove("d-none");
-    };
     voiceInput.onend = () => {
-      if (!speechSynthesis.speaking) {
-        voiceInput.start();
-      }
+      if (voiceStopped) return;
+      voiceInput.start();
     };
     voiceInput.onresult = (event) => {
-      const reply = event.results[0][0].transcript;
-      const replyObj = document.getElementById("reply");
-      if (reply.toLowerCase().split(" ").includes(answer.toLowerCase())) {
+      const replyText = event.results[0][0].transcript;
+      if (replyText.toLowerCase().split(" ").includes(answer.toLowerCase())) {
         correctCount += 1;
         playAudio("correct", 0.3);
-        replyObj.textContent = "⭕ " + answer;
+        reply.textContent = "⭕ " + answer;
         searchButton.classList.add("animate__heartBeat");
+        replyPlease.classList.add("d-none");
+        reply.classList.remove("d-none");
       } else {
         incorrectCount += 1;
         playAudio("incorrect", 0.3);
-        replyObj.textContent = "❌ " + reply;
+        reply.textContent = "❌ " + replyText;
+        replyPlease.classList.add("d-none");
+        reply.classList.remove("d-none");
       }
       voiceInput.stop();
     };
@@ -311,16 +311,25 @@ function setVoiceInput() {
 }
 
 function startVoiceInput() {
-  voiceInput.start();
+  voiceStopped = false;
+  document.getElementById("startVoiceInput").classList.add("d-none");
+  document.getElementById("stopVoiceInput").classList.remove("d-none");
+  replyPlease.classList.remove("d-none");
+  reply.classList.add("d-none");
+  try {
+    voiceInput.start();
+  } catch {
+    // continue regardless of error
+  }
 }
 
 function stopVoiceInput() {
-  const startButton = document.getElementById("startVoiceInput");
-  const stopButton = document.getElementById("stopVoiceInput");
-  startButton.classList.remove("d-none");
-  stopButton.classList.add("d-none");
-  document.getElementById("reply").textContent = "英語で答えてください";
-  voiceInput.stop();
+  voiceStopped = true;
+  document.getElementById("startVoiceInput").classList.remove("d-none");
+  document.getElementById("stopVoiceInput").classList.add("d-none");
+  replyPlease.classList.remove("d-none");
+  reply.classList.add("d-none");
+  voiceInput.abort();
 }
 
 let gameTimer;
@@ -334,13 +343,17 @@ function startGameTimer() {
     } else {
       clearInterval(gameTimer);
       playAudio("end");
-      playPanel.classList.add("d-none");
-      scorePanel.classList.remove("d-none");
-      document.getElementById("correct").textContent = correctCount;
-      document.getElementById("total").textContent = correctCount +
-        incorrectCount;
+      scoring();
+      stopVoiceInput();
     }
   }, 1000);
+}
+
+function scoring() {
+  playPanel.classList.add("d-none");
+  scorePanel.classList.remove("d-none");
+  document.getElementById("correct").textContent = correctCount;
+  document.getElementById("total").textContent = correctCount + incorrectCount;
 }
 
 let countdownTimer;
