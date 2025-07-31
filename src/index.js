@@ -354,7 +354,7 @@ function scoring() {
 
 let countdownTimer;
 function countdown() {
-  speak(""); // unlock
+  speak("Ready"); // unlock
   initTime();
   clearTimeout(countdownTimer);
   countPanel.classList.remove("d-none");
